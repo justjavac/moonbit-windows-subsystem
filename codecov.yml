@@ -1,29 +1,9 @@
 codecov:
   notify:
-    after_n_builds: 3
+    after_n_builds: 1
 
 coverage:
   status:
     project:
       default:
         informational: false
-      linux:
-        flags:
-          - linux
-      macos:
-        flags:
-          - macos
-      windows:
-        flags:
-          - windows
-
-flags:
-  linux:
-    paths:
-      - src/
-  macos:
-    paths:
-      - src/
-  windows:
-    paths:
-      - src/

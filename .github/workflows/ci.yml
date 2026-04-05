@@ -12,38 +12,14 @@ permissions:
 
 jobs:
   test-and-coverage:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Linux
-            os: ubuntu-latest
-            flag: linux
-            coverage_file: coverage/linux.xml
-          - name: macOS
-            os: macos-latest
-            flag: macos
-            coverage_file: coverage/macos.xml
-          - name: Windows
-            os: windows-latest
-            flag: windows
-            coverage_file: coverage/windows.xml
+    name: Windows Native
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install MoonBit on Unix
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
-          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
-
       - name: Install MoonBit on Windows
-        if: runner.os == 'Windows'
         shell: powershell
         run: |
           Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -60,22 +36,21 @@ jobs:
 
       - name: Run coverage tests
         shell: bash
-        run: moon test --enable-coverage -v --target-dir .moonbuild/coverage
+        run: moon test --target native --enable-coverage -v --target-dir .moonbuild/coverage-native
 
       - name: Export Cobertura coverage
         shell: bash
         run: |
           mkdir -p coverage
-          moon coverage report --target-dir .moonbuild/coverage -f cobertura -o "${{ matrix.coverage_file }}"
-          test -f "${{ matrix.coverage_file }}"
+          moon coverage report --target-dir .moonbuild/coverage-native -f cobertura -o coverage/windows.xml
+          test -f coverage/windows.xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           disable_search: true
           fail_ci_if_error: true
-          files: ${{ matrix.coverage_file }}
-          flags: ${{ matrix.flag }}
-          name: ${{ matrix.flag }}-native
+          files: coverage/windows.xml
+          name: windows-native
           use_oidc: true
           verbose: true

@@ -32,7 +32,7 @@ moon add justjavac/windows_subsystem
 
 ```moonbit
 fn main {
-  @justjavac/windows_subsystem.enable()
+  windows_subsystem.enable()
   // Initialize the rest of the desktop application.
 }
 ```

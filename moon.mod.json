@@ -11,5 +11,7 @@
     "ffi"
   ],
   "description": "Keep the Windows GUI subsystem linker stub alive for MoonBit native executables.",
-  "source": "src"
+  "source": "src",
+  "preferred-target": "native",
+  "supported_targets": "+native"
 }

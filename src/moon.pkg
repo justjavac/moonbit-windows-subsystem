@@ -1,7 +1,4 @@
 options(
   "native-stub": [ "windows_subsystem_stub.c" ],
-  targets: {
-    "windows_subsystem_native.mbt": [ "native" ],
-    "windows_subsystem_portable.mbt": [ "wasm", "wasm-gc", "js", "llvm" ],
-  },
+  targets: { "windows_subsystem_native.mbt": [ "native" ] },
 )

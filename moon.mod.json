@@ -5,8 +5,9 @@
   "repository": "https://github.com/justjavac/moonbit-windows-subsystem",
   "license": "MIT",
   "keywords": [
-    "moonbit",
     "windows",
+    "gui",
+    "subsystem",
     "native",
     "ffi"
   ],

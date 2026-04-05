@@ -1,8 +1,5 @@
 # justjavac/windows_subsystem
 [![coverage](https://img.shields.io/codecov/c/github/justjavac/moonbit-windows-subsystem/main?label=coverage)](https://codecov.io/gh/justjavac/moonbit-windows-subsystem)
-[![linux](https://img.shields.io/codecov/c/github/justjavac/moonbit-windows-subsystem/main?flag=linux&label=linux)](https://codecov.io/gh/justjavac/moonbit-windows-subsystem)
-[![macos](https://img.shields.io/codecov/c/github/justjavac/moonbit-windows-subsystem/main?flag=macos&label=macos)](https://codecov.io/gh/justjavac/moonbit-windows-subsystem)
-[![windows](https://img.shields.io/codecov/c/github/justjavac/moonbit-windows-subsystem/main?flag=windows&label=windows)](https://codecov.io/gh/justjavac/moonbit-windows-subsystem)
 
 Keep the Windows GUI subsystem linker flags reachable from a MoonBit native
 entry package.
@@ -18,5 +15,9 @@ fn main {
 }
 ```
 
-The call is harmless on non-Windows and non-native targets and only affects
-MSVC builds on Windows native executables.
+`enable()` does not create windows or initialize any GUI framework. It only
+keeps the package's native stub reachable so MSVC can apply the Windows GUI
+subsystem linker directives to the final executable.
+
+Use this package for native desktop entry binaries that should start without an
+extra console window on Windows.

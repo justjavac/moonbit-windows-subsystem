@@ -1,25 +1,30 @@
 ///|
-/// Binds the native no-op symbol that carries the Windows linker directives.
+/// References the native no-op symbol that keeps the Windows linker directives reachable.
 extern "C" fn enable_windows_subsystem_native() -> Unit = "moonbit_windows_subsystem_enable"
 
 ///|
-/// Ensures the package's Windows GUI subsystem stub is retained by the linker.
+/// Keeps the package's Windows GUI subsystem stub reachable during linking.
 ///
-/// This function is the package's only public entrypoint. Call it once near the
-/// start of your native application's `main` function when you want the final
-/// Windows executable to use the GUI subsystem instead of opening an extra
-/// console window.
+/// Call this once near the beginning of your native application's `main`
+/// function when you want the final Windows executable to use the GUI
+/// subsystem instead of opening an extra console window.
 ///
-/// At runtime, the function does not perform any application initialization and
-/// does not create a window for you. Its job is purely to keep the native C
-/// object file reachable so MSVC can see these linker directives:
+/// At runtime, this function does not perform initialization, create a window,
+/// or change any application state. Its only job is to reference the native C
+/// stub so MSVC can still see these linker directives:
 ///
 /// - `/SUBSYSTEM:WINDOWS`
 /// - `/ENTRY:mainCRTStartup`
 ///
 /// Those directives are only meaningful when compiling a native executable on
-/// Windows with MSVC. On other native toolchains, calling `enable()` remains
-/// harmless but has no special effect beyond referencing the stub symbol.
+/// Windows with MSVC. On other platforms or toolchains, calling `enable()`
+/// remains harmless but has no observable effect beyond referencing the stub
+/// symbol.
+///
+/// Typical usage:
+/// ```
+/// @justjavac/windows_subsystem.enable()
+/// ```
 pub fn enable() -> Unit {
   // Keep the native stub reachable so the linker preserves its directives.
   enable_windows_subsystem_native()

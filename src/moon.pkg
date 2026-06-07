@@ -1,4 +1,7 @@
 options(
   "native-stub": [ "windows_subsystem_stub.c" ],
-  targets: { "windows_subsystem_native.mbt": [ "native" ] },
+  targets: {
+    "windows_subsystem_native.mbt": [ "native" ],
+    "windows_subsystem_test.mbt": [ "native" ],
+  },
 )

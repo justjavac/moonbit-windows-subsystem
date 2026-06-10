@@ -1,6 +1,6 @@
 name = "justjavac/windows_subsystem"
 
-version = "0.1.3"
+version = "0.1.4"
 
 readme = "README.mbt.md"
 
@@ -16,5 +16,4 @@ preferred_target = "native"
 
 options(
   source: "src",
-  supported_targets: "+native",
 )

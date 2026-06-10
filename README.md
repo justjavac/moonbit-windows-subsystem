@@ -1,10 +1,9 @@
 # moonbit-windows-subsystem
 [![coverage](https://img.shields.io/codecov/c/github/justjavac/moonbit-windows-subsystem/main?label=coverage)](https://codecov.io/gh/justjavac/moonbit-windows-subsystem)
 
-`moonbit-windows-subsystem` is a tiny MoonBit native helper that keeps the
-Windows GUI subsystem linker options in the final executable. It is useful for
-desktop entry packages that should launch without an extra console window on
-Windows.
+`moonbit-windows-subsystem` is a tiny MoonBit helper that keeps the Windows GUI
+subsystem linker options in native executables. It is useful for desktop entry
+packages that should launch without an extra console window on Windows.
 
 ## Why this package exists
 
@@ -17,6 +16,8 @@ reachable, so the linker keeps the object file.
 The native stub is intentionally a no-op at runtime. It does not create a
 window, initialize a GUI framework, or alter your application logic. Its only
 purpose is to keep the linker directives attached to the final native binary.
+On WebAssembly and JavaScript targets, `enable()` is also a no-op so shared
+entrypoint code can call it unconditionally.
 
 ## Installation
 
@@ -51,6 +52,7 @@ What it does not do:
 - It does not initialize any GUI toolkit.
 - It does not change your application's startup logic beyond keeping the stub
   object linked in.
+- It does not affect WebAssembly or JavaScript output.
 
 ## Development
 

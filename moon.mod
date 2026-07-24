@@ -14,6 +14,4 @@ description = "Keep the Windows GUI subsystem linker stub alive for MoonBit nati
 
 preferred_target = "native"
 
-options(
-  source: "src",
-)
+source = "src"
